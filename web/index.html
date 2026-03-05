@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Git MVP</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Health Git MVP</h1>
+      <small>Issue -> Branch -> Commit -> PR -> Checks -> Merge</small>
+
+      <div class="layout">
+        <section class="panel">
+          <h2>toC: 用户提交</h2>
+          <label>consumer api key（可选）<input id="consumerKey" type="password" placeholder="x-api-key for consumer endpoints" /></label>
+          <button id="seedBtn" class="secondary">初始化示例数据</button>
+
+          <label>branch_id<input id="branchId" type="number" value="1" /></label>
+          <label>user_id<input id="userId" type="number" value="1" /></label>
+          <label>task_type<input id="taskType" value="meal_log" /></label>
+          <label>evidence_text<textarea id="evidenceText">早餐控糖，步行30分钟</textarea></label>
+          <label>metric_value<input id="metricValue" type="number" step="0.1" value="108" /></label>
+          <label>adherence_score<input id="adherence" type="number" min="0" max="100" value="82" /></label>
+          <button id="commitBtn">提交 Commit</button>
+
+          <hr />
+
+          <label>PR Summary<textarea id="prSummary">Adjust plan: reduce late-night carbs and add post-dinner walk</textarea></label>
+          <label>risk_level
+            <select id="riskLevel">
+              <option value="low">low</option>
+              <option value="medium">medium</option>
+              <option value="high">high</option>
+            </select>
+          </label>
+          <button id="prBtn">发起 PR</button>
+
+          <hr />
+
+          <label>issue_id<input id="issueId" type="number" value="1" /></label>
+          <label>metric_name<input id="metricName" value="fasting_glucose" /></label>
+          <label>metric_value<input id="outcomeValue" type="number" step="0.1" value="104" /></label>
+          <label>note<textarea id="outcomeNote">Week 1 follow-up</textarea></label>
+          <button id="outcomeBtn">记录 Outcome</button>
+        </section>
+
+        <section class="panel">
+          <h2>toD: 专业端审核</h2>
+          <label>reviewer api key（可选）<input id="reviewerKey" type="password" placeholder="x-api-key for reviewer endpoints" /></label>
+          <label>pr_id<input id="reviewPrId" type="number" value="1" /></label>
+          <label>reviewer_id<input id="reviewerId" type="number" value="2" /></label>
+          <label>review_note<textarea id="reviewNote">Safe to continue</textarea></label>
+          <label><input id="forceOverride" type="checkbox" /> force_override when check failed</label>
+          <div class="grid">
+            <button id="approveBtn">Approve / Merge</button>
+            <button id="rejectBtn" class="warn">Reject</button>
+          </div>
+
+          <hr />
+          <button id="refreshBtn" class="secondary">刷新 Dashboard</button>
+          <button id="eventsBtn" class="secondary">加载审计事件</button>
+          <h3>核心指标</h3>
+          <pre id="metricsBox">-</pre>
+          <h3>最新状态</h3>
+          <pre id="dashboardBox">-</pre>
+          <h3>审计事件</h3>
+          <pre id="eventsBox">-</pre>
+        </section>
+      </div>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
