@@ -9,12 +9,12 @@
 
 ```mermaid
 flowchart LR
-  Consumer[Consumer (toC)] -->|submit commit| API[Health Git API]
-  API -->|runs| Checks{Configurable rules}
-  Checks -->|pass| Reviewer[Reviewer / doctor]
-  Reviewer --> Merge[Merge Plan]
-  Merge --> Metrics[Metrics + Events]
-  Metrics --> Audit[Audit + docs]
+  Consumer["Consumer (toC)"] -->|submit commit| API["Health Git API"]
+  API -->|runs| Checks{"Configurable rules"}
+  Checks -->|pass| Reviewer["Reviewer / doctor"]
+  Reviewer --> Merge["Merge Plan"]
+  Merge --> Metrics["Metrics + Events"]
+  Metrics --> Audit["Audit + docs"]
 ```
 
 ## 用例
