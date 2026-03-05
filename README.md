@@ -34,14 +34,73 @@ gantt
 ```
 
 ## 快速运行
+
+### 1. 安装依赖
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+### 2. 启动服务
+```bash
 uvicorn app.main:app --reload --port 8090
 ```
 
+### 3. 初始化数据
+```bash
+curl -X POST http://127.0.0.1:8090/api/seed
+```
+这会创建默认用户 (Alice 消费者、Dr. Chen 审核者) 和示例健康议题。
+
+### 4. 体验完整流程
+
+**提交打卡 (commit)**
+```bash
+curl -X POST http://127.0.0.1:8090/api/commits \
+  -H "Content-Type: application/json" \
+  -d '{
+    "branch_id": 1,
+    "user_id": 1,
+    "task_type": "meal_log",
+    "evidence_text": "晚餐低碳水，步行30分钟",
+    "metric_value": 106,
+    "adherence_score": 88
+  }'
+```
+
+**创建 PR (请求审核)**
+```bash
+curl -X POST http://127.0.0.1:8090/api/prs \
+  -H "Content-Type: application/json" \
+  -d '{
+    "branch_id": 1,
+    "requested_by": 1,
+    "summary": "继续低碳饮食+晚间步行",
+    "risk_level": "low"
+  }'
+```
+
+**审核并合并**
+```bash
+# {pr_id} 替换为上一步返回的 id
+curl -X POST http://127.0.0.1:8090/api/prs/{pr_id}/review \
+  -H "Content-Type: application/json" \
+  -d '{
+    "reviewer_id": 2,
+    "action": "approve",
+    "review_note": "同意继续",
+    "force_override": false
+  }'
+```
+
+### 5. Web 界面
 打开 `http://127.0.0.1:8090` 体验 toC/toD 界面。
+
+### 6. 查看指标
+```bash
+curl http://127.0.0.1:8090/api/metrics
+```
 
 ## 认证
 默认不开启，需设置：
