@@ -124,12 +124,6 @@ export REVIEWER_API_KEY=reviewer-key
 - `GET /api/rules`
 - `PATCH /api/rules/{rule_id}`
 
-## 文档 & CI
-- 本次开发纪录：`docs/2026-03-05-health-git-mvp.md`
+## CI
 - 自动化：`.github/workflows/ci.yml`（`pytest -q`）
 - 生成镜像：`Dockerfile` + `uvicorn` 启动
-
-## 发布提示
-1. 参考 docs（`docs/2026-03-05-health-git-mvp.md`）整理 SKILL metadata 和 agent 行为。
-2. 生成 `SKILL.md`（描述 intent、APIs、对话例子），用 `openclaw skill build` 打包 + `openclaw skill publish` 上传到 ClawHub registry。
-*** End README
